@@ -57,6 +57,7 @@
 /// - skip-number (content, none, function): skip-number
 /// - annotations (array, none, function): annotations
 /// - annotation-format (none, function): annotation-format
+/// - annotation-style (function): annotation-style
 /// - highlighted-lines (array, none, function): highlighted-lines
 /// - highlighted-default-color (color, tiling, gradient, function): highlighted-default-color
 /// - highlights (array, none, function): highlights
@@ -114,6 +115,7 @@
   skip-number: __codly-default,
   annotations: __codly-default,
   annotation-format: __codly-default,
+  annotation-style: __codly-default,
   highlighted-lines: __codly-default,
   highlighted-default-color: __codly-default,
   highlights: __codly-default,
@@ -255,6 +257,9 @@
   }
   if annotation-format != __codly-default {
     out.insert("annotation-format", annotation-format)
+  }
+  if annotation-style != __codly-default {
+    out.insert("annotation-style", annotation-style)
   }
   if highlighted-lines != __codly-default {
     out.insert("highlighted-lines", highlighted-lines)
@@ -421,6 +426,7 @@
   skip-number: __codly-default,
   annotations: __codly-default,
   annotation-format: __codly-default,
+  annotation-style: __codly-default,
   highlighted-lines: __codly-default,
   highlighted-default-color: __codly-default,
   highlights: __codly-default,
@@ -562,6 +568,9 @@
   }
   if annotation-format != __codly-default {
     out.insert("annotation-format", annotation-format)
+  }
+  if annotation-style != __codly-default {
+    out.insert("annotation-style", annotation-style)
   }
   if highlighted-lines != __codly-default {
     out.insert("highlighted-lines", highlighted-lines)

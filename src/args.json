@@ -344,6 +344,13 @@
         "ty": [ "type(none)", "function" ],
         "function": false
     },
+    "annotation-style": {
+        "title": "Style of the annotations",
+        "description": "A wrapper around each annotation. A function taking the the formatted annotation number, the height, the annotation content, and labels",
+        "default": "(number, height, content, label) => { $lr(}, size: #height) #number #content #label$ }",
+        "ty": ["function"],
+        "function": false
+    },
     "highlighted-lines": {
         "title": "Highlight lines",
         "description": "Changes the background fill of certain lines to give them the appearance of being hihglighted. This is done by specifying an array of a combination of:\n - *line numbers*: the line number (one-indexed) as it is shown in the document (including offsets, skips, etc.)\n - *array of line number & fill*: an array of strictly two elements containing the line number (same as before) and a color, gradient, or pattern fill. \n\n The default highlighting color is controlled by the #link(<arg-highlighted-default-color>)[`highlighted-default-color`] argument. \n#one-indexed",

@@ -1174,6 +1174,19 @@
     }
   }
 
+  let annotation-style = {
+    let fn = (
+      __codly-args.annotation-style.type_check
+    )(if "annotation-style" in extra {
+      extra.annotation-style
+    } else {
+      state("codly-annotation-style", __codly-args
+        .annotation-style
+        .default).get()
+    })
+    fn
+  }
+
   let annotations = {
     let annotations = (
       __codly-args.annotations.type_check
@@ -1217,27 +1230,21 @@
   }
   let has-annotations = annotations != none and annotations.len() > 0
 
-  // Get the widest annotation.
-  let annot-bodies-width = annotations
-    .map(x => x.content)
-    .map(measure)
-    .map(x => x.width)
-  let num = annotation-format(annotations.len())
-  let lr-width = if annotations.len() > 0 {
-    measure(math.lr("}", size: 5em) + num).width
-  } else {
-    0pt
-  }
-
-  let annot-width = annot-bodies-width.fold(
-    0pt,
-    (a, b) => calc.max(a, b),
-  ) + padding.left + padding.right + lr-width
-
   // Get the height of an individual line.
   let line-height = measure(
     raw.line(1, 1, "X", [X])
   ).height + padding.top + padding.bottom
+
+  // Get the widest annotation.
+  let annot-widths = annotations
+    .map(x => annotation-style(annotation-format(annotations.len()), line-height, x.content, []))
+    .map(measure)
+    .map(x => x.width)
+
+  let annot-width = annot-widths.fold(
+    0pt,
+    (a, b) => calc.max(a, b),
+  ) + padding.left + padding.right
 
   let items = ()
   let lines_to_number = ()
@@ -1646,9 +1653,7 @@
         none
       }
 
-      let annot-content = {
-        $lr(}, size: #height) #num #current-annot.content #label$
-      }
+      let annot-content = annotation-style(num, height, current-annot.content, label)
 
       annot = grid.cell(
         rowspan: current-annot.end - current-annot.start + 1,
